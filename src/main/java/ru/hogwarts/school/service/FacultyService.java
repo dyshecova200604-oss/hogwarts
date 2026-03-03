@@ -5,6 +5,7 @@ import ru.hogwarts.school.model.Faculty;
 import java.util.Collection;
 import java.util.HashMap;
 
+
 @Service
 public class FacultyService{
     private final HashMap<Long, Faculty> faculties = new HashMap<>();
