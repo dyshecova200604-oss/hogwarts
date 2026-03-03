@@ -1,48 +1,66 @@
 package ru.hogwarts.school.model;
+
+import java.util.List;
 import java.util.Objects;
-public class Faculty{
-    private long id;
+
+@ru.hogwarts.school.model.Entity
+public class Faculty {
+
+    @ru.hogwarts.school.model.Id
+    @ru.hogwarts.school.model.GeneratedValue
+    private Long id;
     private String name;
     private String color;
-    public Faculty( long id, String name, String color ){
-        this.id = id;
+
+    @ru.hogwarts.school.model.OneToMany(mappedBy = "faculty")
+    private List<Student> students;
+
+    public Faculty(String name, String color, Long id) {
         this.name = name;
         this.color = color;
+        this.id = id;
     }
-    @Override
-    public String toString(){
-        return "Faculty{" +
-                "id=" + id + '\'' +
-                "name='" + name + '\'' +
-                ", color='" + color + '\'' +
-                '}';
+
+    public Faculty() {
     }
-    @Override
-    public boolean equals( Object o ){
-        if (o == null || getClass() != o.getClass()) return false;
-        Faculty faculty = (Faculty) o;
-        return Objects.equals( name, faculty.name ) && Objects.equals( color, faculty.color );
-    }
-    @Override
-    public int hashCode(){
-        return Objects.hash( name, color );
-    }
-    public long getId(){
+
+    public Long getId() {
         return id;
     }
-    public void setId( long id ){
+
+    public void setId(Long id) {
         this.id = id;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    public void setName( String name ){
+
+    public void setName(String name) {
         this.name = name;
     }
-    public String getColor(){
+
+    public String getColor() {
         return color;
     }
-    public void setColor( String color ){
+
+    public void setColor(String color) {
         this.color = color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Faculty faculty)) return false;
+        return Objects.equals(getId(), faculty.getId()) && Objects.equals(getName(), faculty.getName()) && Objects.equals(getColor(), faculty.getColor());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getColor());
+    }
+
+    public List<Student> getStudents() {
+        return students;
     }
 }

@@ -1,49 +1,53 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.exception.StudentNotFoundException;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
-import java.util.*;
+import ru.hogwarts.school.repository.StudentRepository;
+
+import java.util.List;
+
+
 @Service
-public class StudentService{
-    private final HashMap<Long, Student> students = new HashMap<>();
-    private long lastId = 0;
-    public Student createStudent(Student student) {
-        if (student != null) {
-            student.setId(++lastId);
-            students.put(student.getId(), student);
-            return student;
-        } else {
-            return null;
-        }
+public class StudentService {
+
+    private final StudentRepository studentRepository;
+
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
-    public Student getStudent(long id) {
-        if (students.containsKey(id)) {
-            return students.get(id);
-        } else {
-            return null;
-        }
+
+    public Student getStudentById(long id) {
+        return studentRepository.findById(id).get();
     }
-    public Student deleteStudent(long id) {
-        return students.remove(id);
+
+    public Student createStudent(String name, int age) {
+        Student student = new Student();
+        student.setName(name);
+        student.setAge(age);
+        return studentRepository.save(student);
     }
-    public Student updateStudent(Student student) {
-        if (students.containsKey( student.getId( ))){
-            students.put(student.getId(), student);
-            return student;
-        }
-        return null;
+
+    public Student updateStudent(Long id, String name, int age) {
+        Student student = new Student();
+        student.setName(name);
+        student.setAge(age);
+        studentRepository.save(student);
+        return student;
     }
-    public Student findStudent(long id) {
-        return students.get(id);
+
+    public void deleteStudent(Long id) {
+        studentRepository.deleteById(id);
     }
-    public Collection<Student> getAllStudents() {
-        return students.values();
+
+    public List<Student> getStudentsByAge(int age) {
+        return studentRepository.getByAge(age);
     }
-    public List<Student> filterByAge(int age) {
-        List<Student> filteredStudents;
-        filteredStudents = students.values().stream()
-                .filter( x -> x.getAge() == age )
-                .toList();
-        return filteredStudents;
+
+    public Faculty getFacultyByStudentId(Long Id) {
+        Student student = studentRepository.findById(Id).orElseThrow(
+                () -> new StudentNotFoundException("Student not found with id: " + Id));
+        return student.getFaculty();
     }
 }
