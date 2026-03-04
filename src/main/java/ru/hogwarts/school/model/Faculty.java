@@ -9,9 +9,6 @@ import java.util.List;
 @ToString
 public class Faculty {
 
-    @Id
-    @GeneratedValue
-    private Long facultyId;
     private String name;
     private String color;
 
@@ -34,5 +31,12 @@ public class Faculty {
 
     public String getStudents() {
         return students.toString();
+    }
+
+    public void setFacultyId(long l) {
+    }
+
+    public boolean getFacultyId() {
+        return getFacultyId();
     }
 }
