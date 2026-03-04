@@ -1,49 +1,38 @@
 package ru.hogwarts.school.model;
 
-import java.util.Objects;
-public class Faculty{
-    private long id;
+import java.util.List;
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@ToString
+public class Faculty {
+
+    @Id
+    @GeneratedValue
+    private Long facultyId;
     private String name;
     private String color;
-    public Faculty( long id, String name, String color ){
-        this.id = id;
-        this.name = name;
-        this.color = color;
+
+    @OneToMany(mappedBy = "faculty")
+    private List<Student> students;
+
+    public void setName(String name) {
     }
-    @Override
-    public String toString(){
-        return "Faculty{" +
-                "id=" + id + '\'' +
-                "name='" + name + '\'' +
-                ", color='" + color + '\'' +
-                '}';
+
+    public void setColor(String color) {
     }
-    @Override
-    public boolean equals( Object o ){
-        if (o == null || getClass() != o.getClass()) return false;
-        Faculty faculty = (Faculty) o;
-        return Objects.equals( name, faculty.name ) && Objects.equals( color, faculty.color );
-    }
-    @Override
-    public int hashCode(){
-        return Objects.hash( name, color );
-    }
-    public long getId(){
-        return id;
-    }
-    public void setId( long id ){
-        this.id = id;
-    }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    public void setName( String name ){
-        this.name = name;
-    }
-    public String getColor(){
+
+    public String getColor() {
         return color;
     }
-    public void setColor( String color ){
-        this.color = color;
+
+    public String getStudents() {
+        return students.toString();
     }
 }

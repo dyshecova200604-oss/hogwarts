@@ -1,50 +1,36 @@
 package ru.hogwarts.school.model;
 
-import java.util.Objects;
 
-public class Student{
-    private long id;
+public class Student {
+    private Long studentId;
     private String name;
     private int age;
-    public Student( long id, String name, int age ){
-        this.id = id;
-        this.name = name;
-        this.age = age;
+
+    @ru.hogwarts.school.model.ManyToOne
+    private Faculty faculty;
+
+    public Faculty getFaculty() {
+        return getFaculty();
     }
-    @Override
-    public String toString(){
-        return "Faculty{" +
-                "id=" + id + '\'' +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+
+    public void setName(String name) {
     }
-    @Override
-    public boolean equals( Object o ){
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return age == student.age && Objects.equals( name, student.name );
+
+    public void setAge(int age) {
     }
-    @Override
-    public int hashCode(){
-        return Objects.hash( name, age );
+
+    public void setStudentId(long l) {
     }
-    public long getId(){
-        return id;
+
+    public boolean getStudentId() {
+        return getStudentId();
     }
-    public void setId( long id ){
-        this.id = id;
+
+    public boolean getName() {
+        return getName();
     }
-    public String getName(){
-        return name;
-    }
-    public void setName( String name ){
-        this.name = name;
-    }
-    public int getAge(){
-        return age;
-    }
-    public void setAge( int age ){
-        this.age = age;
+
+    public boolean getAge() {
+        return getAge();
     }
 }
