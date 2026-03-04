@@ -1,66 +1,38 @@
 package ru.hogwarts.school.model;
 
 import java.util.List;
-import java.util.Objects;
-
-@ru.hogwarts.school.model.Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@ToString
 public class Faculty {
 
-    @ru.hogwarts.school.model.Id
-    @ru.hogwarts.school.model.GeneratedValue
-    private Long id;
+    @Id
+    @GeneratedValue
+    private Long facultyId;
     private String name;
     private String color;
 
-    @ru.hogwarts.school.model.OneToMany(mappedBy = "faculty")
+    @OneToMany(mappedBy = "faculty")
     private List<Student> students;
 
-    public Faculty(String name, String color, Long id) {
-        this.name = name;
-        this.color = color;
-        this.id = id;
+    public void setName(String name) {
     }
 
-    public Faculty() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setColor(String color) {
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Faculty faculty)) return false;
-        return Objects.equals(getId(), faculty.getId()) && Objects.equals(getName(), faculty.getName()) && Objects.equals(getColor(), faculty.getColor());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getColor());
-    }
-
-    public List<Student> getStudents() {
-        return students;
+    public String getStudents() {
+        return students.toString();
     }
 }

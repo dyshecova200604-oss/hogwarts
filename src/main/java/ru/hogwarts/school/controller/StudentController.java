@@ -1,5 +1,5 @@
 package ru.hogwarts.school.controller;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,19 +9,23 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
-    @Autowired
-    private StudentService studentService;
+
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @GetMapping
-    public ResponseEntity<Student> getStudent(@PathVariable int id) {
-        Student student = studentService.getStudentById(id);
+    public ResponseEntity<Student> getStudent(@PathVariable int studentId) {
+        Student student = studentService.getStudentById(studentId);
         return new ResponseEntity<>(new Student(), HttpStatus.OK);
     }
+
 
     @PostMapping
     public ResponseEntity<Student> createStudent(@RequestParam String name, @RequestParam int age) {
@@ -30,14 +34,14 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestParam String name, @RequestParam int age) {
-        Student student = studentService.updateStudent(id, name, age);
+    public ResponseEntity<Student> updateStudent(@PathVariable Long studentId, @RequestParam String name, @RequestParam int age) {
+        Student student = studentService.updateStudent(studentId, name, age);
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
-        studentService.deleteStudent(id);
+    public ResponseEntity<String> deleteStudent(@PathVariable Long studentId) {
+        studentService.deleteStudent(studentId);
         return new ResponseEntity<>("Faculty deleted successfully", HttpStatus.OK);
     }
 
@@ -47,7 +51,8 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public Faculty getFacultyByStudentId(@PathVariable Long Id) {
-        return studentService.getFacultyByStudentId(Id);
+    public Faculty getFacultyByStudentId(@PathVariable Long studentId) {
+        return studentService.getFacultyByStudentId(studentId);
+
     }
 }
