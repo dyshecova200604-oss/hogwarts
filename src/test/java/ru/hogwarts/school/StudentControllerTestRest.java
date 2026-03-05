@@ -25,7 +25,6 @@ public class StudentControllerTestRest {
     public StudentControllerTestRest(int port) {
         this.port = port;
     }
-
     @Test
     public void testGetFaculty() throws Exception {
         Student student = new Student();

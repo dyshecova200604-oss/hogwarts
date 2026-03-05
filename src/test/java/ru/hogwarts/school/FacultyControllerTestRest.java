@@ -2,11 +2,9 @@ package ru.hogwarts.school;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -20,12 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 
 public class FacultyControllerTestRest {
-    @LocalServerPort
+
     private int port;
 
     @Autowired
@@ -95,7 +92,7 @@ public class FacultyControllerTestRest {
         String color = "Green";
         List <Faculty> expectedFaculties = new ArrayList<>();
 
-        expectedFaculties.add(new Faculty(1, "Fenix", color));
+        expectedFaculties.add(new Faculty());
         ResponseEntity<List<Faculty>> response = restTemplate.exchange(
                 "http://localhost:" + port + "/faculty/color/{color}",
                 HttpMethod.GET,
@@ -113,7 +110,7 @@ public class FacultyControllerTestRest {
     public void testGetStudentByFaculty() {
         Long facultyId = 1L;
         List <Student> expectedStudents = new ArrayList<>();
-        expectedStudents.add(new Student(1L, "John", 1));
+        expectedStudents.add(new Student());
 
         ResponseEntity<List<Student>> response = restTemplate.exchange(
                 "http://localhost:" + port + "/faculty/{id}/students",

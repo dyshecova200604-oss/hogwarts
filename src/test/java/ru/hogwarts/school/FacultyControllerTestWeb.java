@@ -5,8 +5,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -30,16 +28,15 @@ public class FacultyControllerTestWeb {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+
     private StudentRepository studentRepository;
 
-    @MockBean
+
     private FacultyRepository facultyRepository;
 
-    @SpyBean
+
     private StudentService studentService;
 
-    @SpyBean
     private FacultyService facultyService;
 
     @InjectMocks
@@ -145,7 +142,7 @@ public class FacultyControllerTestWeb {
 
         List<Student> students = Arrays.asList(student1, student2);
 
-        Mockito.when(facultyService.getStudentByFaculty(1L)).thenReturn(students);
+        Mockito.when(facultyService.getStudentByFaculty(1L)).thenReturn(students.toString());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/1/students"))
                 .andExpect(MockMvcResultMatchers.status().isOk())

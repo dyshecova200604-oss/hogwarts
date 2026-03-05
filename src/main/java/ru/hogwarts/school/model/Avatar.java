@@ -29,9 +29,7 @@ public class Avatar {
     }
 
     public Avatar() {
-
     }
-
     public void setStudent(Student student) {
     }
 
